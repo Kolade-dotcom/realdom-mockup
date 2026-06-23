@@ -41,7 +41,15 @@ export default function ListingDetail() {
   const l = listing;
   const [activeImg, setActiveImg] = useState(0);
   const [slideDir, setSlideDir] = useState<"left" | "right" | null>(null);
-  const [activeTab, setActiveTab] = useState<"rent" | "buy" | "sell">("rent");
+  const [activeTab, setActiveTab] = useState<"rent" | "buy">("rent");
+  const [mapOpen, setMapOpen] = useState(false);
+  const [mapClosing, setMapClosing] = useState(false);
+
+  const openMap = () => setMapOpen(true);
+  const closeMap = () => {
+    setMapClosing(true);
+    setTimeout(() => { setMapOpen(false); setMapClosing(false); }, 260);
+  };
   const [isSaved, setIsSaved] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [msgSent, setMsgSent] = useState(false);
@@ -199,9 +207,9 @@ export default function ListingDetail() {
           {/* ─── RIGHT: Details Panel ─── */}
           <div style={d.detailsCol}>
 
-            {/* Buy / Sell / Rent tabs */}
+            {/* Buy / Rent tabs */}
             <div style={d.tabRow} className="animate-fade-in-up stagger-1">
-              {(["rent", "buy", "sell"] as const).map((tab) => (
+              {(["rent", "buy"] as const).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -222,7 +230,7 @@ export default function ListingDetail() {
             <div style={d.statusRow} className="animate-fade-in-up stagger-2">
               <div style={d.statusDot} />
               <span style={d.statusText}>
-                {activeTab === "rent" ? "Available for rent" : activeTab === "buy" ? "House for sale" : "List for sale"}
+                {activeTab === "rent" ? "Available for rent" : "House for sale"}
               </span>
             </div>
 
@@ -249,13 +257,24 @@ export default function ListingDetail() {
               ))}
             </div>
 
-            {/* Address */}
-            <div style={d.addressRow} className="animate-fade-in-up stagger-3">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" strokeWidth="2">
+            {/* Address — clickable, opens map modal */}
+            <button
+              onClick={openMap}
+              style={d.addressRow}
+              className="interactive-btn address-btn"
+              aria-label="View on map"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand-primary)" strokeWidth="2">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
               </svg>
               <span style={d.addressText}>{l.location}</span>
-            </div>
+              <span style={d.addressMapHint}>
+                View on map
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginLeft: 3 }}>
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </span>
+            </button>
 
             {/* Community */}
             <div style={d.communityRow} className="animate-fade-in-up stagger-3">
@@ -369,6 +388,88 @@ export default function ListingDetail() {
           </div>
         </div>
       </main>
+
+      {/* ─── Map Modal ─── */}
+      {mapOpen && (
+        <div
+          style={mapClosing ? { ...m.backdrop, opacity: 0, transition: "opacity 0.26s" } : m.backdrop}
+          className={mapClosing ? "animate-fade-in" : "animate-backdrop-in"}
+          onClick={closeMap}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Property location map"
+        >
+          <div
+            style={m.panel}
+            className={mapClosing ? "animate-modal-close" : "animate-modal-open"}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal header */}
+            <div style={m.header}>
+              <div style={m.headerLeft}>
+                <div style={m.headerIcon}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand-primary)" strokeWidth="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
+                  </svg>
+                </div>
+                <div>
+                  <p style={m.headerTitle}>Property Location</p>
+                  <p style={m.headerAddr}>{l.location}</p>
+                </div>
+              </div>
+              <button onClick={closeMap} style={m.closeBtn} className="interactive-btn" aria-label="Close map">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Map embed — OpenStreetMap iframe (no API key needed) */}
+            <div style={m.mapWrap}>
+              <iframe
+                title="Property location map"
+                src={`https://www.openstreetmap.org/export/embed.html?bbox=3.3300%2C6.5900%2C3.3700%2C6.6100&layer=mapnik&marker=6.6000%2C3.3500`}
+                style={m.iframe}
+                loading="lazy"
+                allowFullScreen
+              />
+              {/* Pin overlay */}
+              <div style={m.pinOverlay} className="animate-bounce-in">
+                <div style={m.pin}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="white" stroke="white" strokeWidth="0">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                </div>
+                <div style={m.pinLabel}>{l.community}</div>
+              </div>
+            </div>
+
+            {/* Footer actions */}
+            <div style={m.footer}>
+              <div style={m.footerAddr}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" strokeWidth="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
+                </svg>
+                {l.location}
+              </div>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(l.location)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={m.gmapsBtn}
+                className="interactive-btn"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                  <polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+                Open in Google Maps
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </>
   );
@@ -683,9 +784,24 @@ const d: Record<string, React.CSSProperties> = {
     padding: "10px 14px",
     borderRadius: "var(--radius-md)",
     background: "var(--color-bg-subtle)",
-    border: "1px solid var(--color-border-default)",
+    border: "1.5px solid var(--color-border-default)",
+    cursor: "pointer",
+    width: "100%",
+    fontFamily: "inherit",
+    transition: "all 0.18s var(--motion-easing-spring)",
+    textAlign: "left" as const,
   },
-  addressText: { fontSize: 13, color: "var(--color-text-secondary)", fontWeight: 500 },
+  addressText: { fontSize: 13, color: "var(--color-text-secondary)", fontWeight: 500, flex: 1 },
+  addressMapHint: {
+    display: "inline-flex",
+    alignItems: "center",
+    fontSize: 11,
+    fontWeight: 700,
+    color: "var(--color-brand-primary)",
+    letterSpacing: "0.2px",
+    whiteSpace: "nowrap" as const,
+    opacity: 0.9,
+  },
   communityRow: {
     display: "flex",
     alignItems: "center",
@@ -837,5 +953,177 @@ const d: Record<string, React.CSSProperties> = {
     borderRadius: "var(--radius-lg)",
     background: "#FFFBEB",
     border: "1px solid #FDE68A",
+  },
+};
+
+/* ══════════════════════════════════════════ */
+/* MAP MODAL STYLES                           */
+/* ══════════════════════════════════════════ */
+
+const m: Record<string, React.CSSProperties> = {
+  backdrop: {
+    position: "fixed",
+    inset: 0,
+    background: "rgba(15,23,36,0.65)",
+    backdropFilter: "blur(8px)",
+    WebkitBackdropFilter: "blur(8px)",
+    zIndex: 600,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "var(--space-6)",
+  },
+  panel: {
+    width: "100%",
+    maxWidth: 680,
+    background: "var(--color-surface-default)",
+    borderRadius: "var(--radius-2xl)",
+    boxShadow: "var(--shadow-xl)",
+    overflow: "hidden",
+    border: "1px solid var(--color-border-default)",
+    display: "flex",
+    flexDirection: "column" as const,
+    maxHeight: "calc(100vh - 80px)",
+  },
+  header: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "var(--space-4) var(--space-5)",
+    borderBottom: "1px solid var(--color-border-default)",
+  },
+  headerLeft: {
+    display: "flex",
+    alignItems: "center",
+    gap: "var(--space-3)",
+  },
+  headerIcon: {
+    width: 36,
+    height: 36,
+    borderRadius: "var(--radius-md)",
+    background: "var(--color-surface-brand-soft)",
+    border: "1px solid var(--blue-100)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+  },
+  headerTitle: {
+    fontSize: 15,
+    fontWeight: 700,
+    color: "var(--color-text-primary)",
+    margin: 0,
+    letterSpacing: "-0.1px",
+  },
+  headerAddr: {
+    fontSize: 12,
+    color: "var(--color-text-muted)",
+    margin: "2px 0 0",
+  },
+  closeBtn: {
+    width: 34,
+    height: 34,
+    borderRadius: "50%",
+    background: "var(--color-bg-subtle)",
+    border: "1.5px solid var(--color-border-default)",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "var(--color-text-secondary)",
+    flexShrink: 0,
+    fontFamily: "inherit",
+    transition: "all 0.15s",
+  },
+  mapWrap: {
+    position: "relative",
+    flex: 1,
+    minHeight: 360,
+    background: "var(--color-bg-subtle)",
+    overflow: "hidden",
+  },
+  iframe: {
+    width: "100%",
+    height: "100%",
+    minHeight: 360,
+    border: "none",
+    display: "block",
+    filter: "saturate(0.9) brightness(1.02)",
+  },
+  pinOverlay: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -100%)",
+    display: "flex",
+    flexDirection: "column" as const,
+    alignItems: "center",
+    gap: 4,
+    pointerEvents: "none",
+    zIndex: 2,
+  },
+  pin: {
+    width: 42,
+    height: 42,
+    borderRadius: "50% 50% 50% 0",
+    background: "var(--color-brand-primary)",
+    transform: "rotate(-45deg)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    boxShadow: "0 4px 16px rgba(33,98,163,0.45)",
+    border: "3px solid white",
+  },
+  pinLabel: {
+    padding: "5px 12px",
+    borderRadius: "var(--radius-pill)",
+    background: "var(--neutral-950)",
+    color: "white",
+    fontSize: 11,
+    fontWeight: 700,
+    letterSpacing: "0.3px",
+    boxShadow: "var(--shadow-md)",
+    whiteSpace: "nowrap" as const,
+    marginTop: 6,
+  },
+  footer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "var(--space-3) var(--space-5)",
+    borderTop: "1px solid var(--color-border-default)",
+    background: "var(--color-bg-subtle)",
+    gap: "var(--space-3)",
+    flexWrap: "wrap" as const,
+  },
+  footerAddr: {
+    display: "flex",
+    alignItems: "center",
+    gap: 5,
+    fontSize: 13,
+    color: "var(--color-text-secondary)",
+    fontWeight: 500,
+    flex: 1,
+    minWidth: 0,
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap" as const,
+  },
+  gmapsBtn: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 6,
+    padding: "9px 18px",
+    borderRadius: "var(--radius-pill)",
+    background: "var(--color-brand-primary)",
+    color: "white",
+    fontSize: 13,
+    fontWeight: 700,
+    border: "none",
+    cursor: "pointer",
+    textDecoration: "none",
+    flexShrink: 0,
+    transition: "all 0.15s",
+    boxShadow: "var(--shadow-sm)",
   },
 };

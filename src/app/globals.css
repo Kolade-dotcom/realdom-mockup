@@ -1131,3 +1131,17 @@ input[type="checkbox"] {
   border-bottom: 1px solid var(--color-border-default);
   box-shadow: var(--shadow-sm);
 }
+
+/* ============================================
+   Address Row — clickable map trigger
+   ============================================ */
+
+.address-btn:hover {
+  border-color: var(--color-brand-primary) !important;
+  background: var(--color-surface-brand-soft) !important;
+  box-shadow: var(--shadow-sm), 0 0 0 3px rgba(44,126,204,0.10);
+  transform: translateY(-1px);
+}
+.address-btn:active {
+  transform: scale(0.98) translateY(0) !important;
+}
