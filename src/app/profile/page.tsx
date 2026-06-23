@@ -45,7 +45,7 @@ export default function ProfilePage() {
           {/* Pattern overlay */}
           <div style={ps.heroPattern} aria-hidden />
 
-          <div style={ps.heroInner}>
+          <div style={ps.heroInner} className="profile-hero-inner">
             {/* Avatar */}
             <div style={ps.avatarWrap} className="animate-profile-hero">
               <div style={ps.avatar}>AO</div>
@@ -53,8 +53,8 @@ export default function ProfilePage() {
             </div>
 
             {/* Info */}
-            <div style={ps.heroInfo} className="animate-fade-in-up stagger-2">
-              <h1 style={ps.heroName}>Adaeze Okafor</h1>
+            <div style={ps.heroInfo} className="animate-fade-in-up stagger-2 profile-hero-info">
+              <h1 style={ps.heroName} className="profile-hero-name">Adaeze Okafor</h1>
               <p style={ps.heroTagline}>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="2" style={{ display: "inline", marginRight: 4, verticalAlign: "middle" }}>
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
@@ -63,7 +63,7 @@ export default function ProfilePage() {
               </p>
 
               {/* Stats row */}
-              <div style={ps.statsRow} className="animate-fade-in-up stagger-3">
+              <div style={ps.statsRow} className="animate-fade-in-up stagger-3 profile-stats-row">
                 {[
                   { label: "Saved", value: displayedSaved.length.toString() },
                   { label: "Tours Booked", value: "3" },
@@ -78,7 +78,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Edit button */}
-            <button style={ps.editBtn} className="interactive-btn animate-fade-in-up stagger-4">
+            <button style={ps.editBtn} className="interactive-btn animate-fade-in-up stagger-4 profile-edit-btn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
                 <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
@@ -88,7 +88,7 @@ export default function ProfilePage() {
           </div>
         </section>
 
-        <div style={ps.contentLayout}>
+        <div style={ps.contentLayout} className="profile-content-layout">
 
           {/* ─── Saved Properties ─── */}
           <section style={ps.card} className="animate-fade-in-up stagger-1">
@@ -106,9 +106,9 @@ export default function ProfilePage() {
                 <Link href="/" style={{ ...ps.sectionLink, fontSize: 13 }}>Browse listings →</Link>
               </div>
             ) : (
-              <div style={ps.savedScroll} className="scroll-container">
+              <div style={ps.savedScroll} className="scroll-container profile-saved-scroll">
                 {displayedSaved.map((prop, i) => (
-                  <div key={prop.id} style={ps.savedCard} className={`saved-card animate-fade-in-up stagger-${i + 1}`}>
+                  <div key={prop.id} style={ps.savedCard} className={`saved-card animate-fade-in-up stagger-${i + 1} profile-saved-card`}>
                     <div style={ps.savedImgWrap}>
                       <img src={prop.image} alt={prop.title} style={ps.savedImg} />
                       {/* Remove btn */}
@@ -168,7 +168,7 @@ export default function ProfilePage() {
                       ...ps.activityItem,
                       borderBottom: i < activities.length - 1 ? "1px solid var(--color-border-default)" : "none",
                     }}
-                    className={`activity-item animate-fade-in-up stagger-${Math.min(i + 1, 9)}`}
+                    className={`activity-item animate-fade-in-up stagger-${Math.min(i + 1, 9)} profile-activity-item`}
                   >
                     <div style={{ ...ps.activityIcon, background: item.color, border: `1.5px solid ${item.border}` }}>
                       <span style={{ fontSize: 16 }}>{item.icon}</span>
@@ -177,7 +177,7 @@ export default function ProfilePage() {
                       <p style={ps.activityText}>{item.text}</p>
                       <p style={ps.activitySub}>{item.sub}</p>
                     </div>
-                    <span style={ps.activityTime}>{item.time}</span>
+                    <span style={ps.activityTime} className="profile-activity-time">{item.time}</span>
                   </div>
                 ))}
               </div>

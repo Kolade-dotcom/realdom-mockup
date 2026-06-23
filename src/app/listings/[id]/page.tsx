@@ -71,18 +71,18 @@ export default function ListingDetail() {
 
         {/* Back breadcrumb */}
         <div style={d.breadcrumbBar}>
-          <div style={d.breadcrumbInner}>
+          <div style={d.breadcrumbInner} className="listing-breadcrumb-inner">
             <Link href="/" style={d.breadLink}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
               Back to listings
             </Link>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
-            <span style={d.breadCurrent}>{l.title}</span>
+            <span style={d.breadCurrent} className="listing-breadcrumb-current">{l.title}</span>
           </div>
         </div>
 
         {/* Two-column layout */}
-        <div style={d.twoCol}>
+        <div style={d.twoCol} className="listing-detail-two-col">
 
           {/* ─── LEFT: Gallery ─── */}
           <div style={d.galleryCol}>

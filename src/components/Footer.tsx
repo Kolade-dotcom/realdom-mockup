@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer style={styles.footer}>
       <div style={styles.inner}>
-        <div style={styles.top}>
+        <div style={styles.top} className="footer-top-grid">
           {/* Brand column */}
           <div style={styles.brandCol}>
             <Link href="/" style={styles.brandRow}>
@@ -26,13 +26,14 @@ export default function Footer() {
             {/* Newsletter */}
             <div style={styles.newsletterWrap}>
               <p style={styles.newsletterLabel}>Get rental alerts</p>
-              <div style={styles.newsletterRow}>
+              <div style={styles.newsletterRow} className="footer-newsletter-row">
                 <input
                   type="email"
                   placeholder="your@email.com"
                   style={styles.newsletterInput}
+                  className="footer-newsletter-input"
                 />
-                <button style={styles.newsletterBtn}>Subscribe</button>
+                <button style={styles.newsletterBtn} className="footer-newsletter-btn">Subscribe</button>
               </div>
             </div>
 
@@ -106,13 +107,13 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div style={styles.bottom}>
-          <div style={styles.bottomLeft}>
+        <div style={styles.bottom} className="footer-bottom">
+          <div style={styles.bottomLeft} className="footer-bottom-left">
             <p style={styles.copy}>&copy; {new Date().getFullYear()} RealDom. All rights reserved.</p>
             <span style={styles.dotSep}>·</span>
             <p style={styles.copy}>Built with trust &amp; transparency.</p>
           </div>
-          <div style={styles.bottomBadges}>
+          <div style={styles.bottomBadges} className="footer-bottom-badges">
             <span style={styles.securityBadge}>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="3" y="11" width="18" height="11" rx="2" />

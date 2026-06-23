@@ -48,10 +48,10 @@ export default function Header() {
           transition: "box-shadow 0.25s ease, backdrop-filter 0.25s ease, background 0.25s ease",
         }}
       >
-        <div style={styles.inner}>
+        <div style={styles.inner} className="header-inner">
           {/* Logo */}
           <Link href="/" style={styles.logoWrap}>
-            <div style={styles.logoIcon}>
+            <div style={styles.logoIcon} className="header-logo-icon">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M3 10.5L12 3L21 10.5V20C21 20.55 20.55 21 20 21H15V14H9V21H4C3.45 21 3 20.55 3 20V10.5Z"
@@ -64,11 +64,11 @@ export default function Header() {
                 />
               </svg>
             </div>
-            <span style={styles.logoText}>RealDom.</span>
+            <span style={styles.logoText} className="header-logo-text">RealDom.</span>
           </Link>
 
           {/* City tabs */}
-          <nav style={styles.locationTabs} aria-label="City selection">
+          <nav style={styles.locationTabs} className="header-location-tabs" aria-label="City selection">
             {locations.map((loc) => (
               <button
                 key={loc.id}
@@ -89,6 +89,7 @@ export default function Header() {
             {/* Search trigger pill */}
             <button
               style={styles.searchTrigger}
+              className="header-search-trigger"
               onClick={() => setSearchOpen(true)}
               aria-label="Open search"
             >
@@ -96,12 +97,15 @@ export default function Header() {
                 <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
               </svg>
               <span style={styles.searchPlaceholder}>Search properties...</span>
-              <span style={styles.kbdBadge}>⌘K</span>
+              <span style={styles.kbdBadge} className="header-kbd-badge">⌘K</span>
             </button>
 
             {/* List Property CTA */}
             <Link href="#" style={styles.listPropertyBtn} className="btn-primary interactive-btn">
-              List Property
+              <span className="header-list-cta-text">List Property</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ display: "none" }} className="header-list-cta-icon">
+                <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
             </Link>
 
             {/* Profile link */}
@@ -143,7 +147,7 @@ const styles: Record<string, React.CSSProperties> = {
     justifyContent: "space-between",
     padding: "10px var(--space-6)",
     gap: "var(--space-5)",
-  },
+  } as React.CSSProperties,
   logoWrap: {
     display: "flex",
     alignItems: "center",

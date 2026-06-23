@@ -1145,3 +1145,437 @@ input[type="checkbox"] {
 .address-btn:active {
   transform: scale(0.98) translateY(0) !important;
 }
+
+
+/* ============================================
+   MOBILE RESPONSIVE STYLES
+   ============================================ */
+
+/* Tablet: 768px - 1024px */
+@media (max-width: 1024px) {
+  :root {
+    --space-6: 20px;
+    --space-8: 28px;
+    --space-12: 40px;
+    --space-16: 52px;
+  }
+  
+  /* Listing detail two-column → single column */
+  .listing-detail-two-col {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .listing-detail-sticky {
+    position: relative !important;
+    top: 0 !important;
+  }
+}
+
+/* Mobile: up to 767px */
+@media (max-width: 767px) {
+  :root {
+    --space-6: 16px;
+    --space-8: 24px;
+    --space-10: 32px;
+    --space-12: 36px;
+    --space-16: 44px;
+  }
+
+  /* ─── HEADER ─── */
+  
+  /* Hide city tabs on mobile */
+  .header-location-tabs {
+    display: none !important;
+  }
+  
+  /* Make search trigger full-width on mobile */
+  .header-search-trigger {
+    min-width: 0 !important;
+    flex: 1 !important;
+  }
+  
+  /* Adjust header inner padding */
+  .header-inner {
+    padding: 8px var(--space-4) !important;
+    gap: var(--space-2) !important;
+  }
+  
+  /* Hide "List Property" text on mobile, show only icon */
+  .header-list-cta-text {
+    display: none;
+  }
+  
+  /* Make logo smaller on mobile */
+  .header-logo-text {
+    font-size: 18px !important;
+  }
+  
+  .header-logo-icon {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  /* ─── FOOTER ─── */
+  
+  /* Footer grid → single column */
+  .footer-top-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-8) !important;
+  }
+  
+  /* Newsletter row → column */
+  .footer-newsletter-row {
+    flex-direction: column !important;
+  }
+  
+  .footer-newsletter-input,
+  .footer-newsletter-btn {
+    width: 100% !important;
+  }
+  
+  /* Footer bottom → stack */
+  .footer-bottom {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: var(--space-4) !important;
+  }
+  
+  .footer-bottom-left {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  
+  .footer-bottom-badges {
+    width: 100%;
+    justify-content: flex-start !important;
+  }
+  
+  /* ─── PROFILE PAGE ─── */
+  
+  /* Profile hero → column layout */
+  .profile-hero-inner {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: var(--space-8) var(--space-4) 0 !important;
+  }
+  
+  .profile-hero-info {
+    align-items: center !important;
+  }
+  
+  .profile-hero-name {
+    font-size: 28px !important;
+  }
+  
+  /* Profile stats row → wrap */
+  .profile-stats-row {
+    justify-content: center !important;
+  }
+  
+  /* Edit button full-width on mobile */
+  .profile-edit-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    margin-top: var(--space-4) !important;
+  }
+  
+  /* Saved properties scroll */
+  .profile-saved-scroll {
+    padding: var(--space-4) var(--space-4) !important;
+  }
+  
+  .profile-saved-card {
+    width: 180px !important;
+  }
+  
+  /* Profile content layout */
+  .profile-content-layout {
+    padding: var(--space-6) var(--space-4) var(--space-12) !important;
+  }
+  
+  /* Activity item → wrap */
+  .profile-activity-item {
+    flex-wrap: wrap !important;
+  }
+  
+  .profile-activity-time {
+    width: 100%;
+    margin-top: var(--space-1) !important;
+    margin-left: 58px !important;
+  }
+  
+  /* ─── LISTING DETAIL PAGE ─── */
+  
+  /* Breadcrumb */
+  .listing-breadcrumb-inner {
+    padding: var(--space-2) var(--space-4) !important;
+  }
+  
+  .listing-breadcrumb-current {
+    max-width: 200px !important;
+  }
+  
+  /* Two-column → single column */
+  .listing-detail-two-col {
+    grid-template-columns: 1fr !important;
+    padding: var(--space-6) var(--space-4) var(--space-12) !important;
+    gap: var(--space-6) !important;
+  }
+  
+  /* Gallery */
+  .listing-main-img-wrap {
+    height: 320px !important;
+    border-radius: var(--radius-lg) !important;
+  }
+  
+  .listing-location-pill {
+    font-size: 11px !important;
+    padding: 5px 10px !important;
+    top: 12px !important;
+    left: 12px !important;
+  }
+  
+  .listing-img-save-btn {
+    width: 34px !important;
+    height: 34px !important;
+    top: 12px !important;
+    right: 12px !important;
+  }
+  
+  .listing-arrow-btn {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  
+  .listing-photo-counter {
+    font-size: 11px !important;
+    padding: 4px 10px !important;
+    bottom: 12px !important;
+    right: 12px !important;
+  }
+  
+  /* Thumbnails scroll */
+  .listing-thumb-row {
+    gap: var(--space-2) !important;
+  }
+  
+  .listing-thumb {
+    width: 72px !important;
+    height: 52px !important;
+  }
+  
+  /* Description cards */
+  .listing-desc-card {
+    padding: var(--space-4) !important;
+  }
+  
+  .listing-card-heading {
+    font-size: 15px !important;
+  }
+  
+  .listing-desc-text {
+    font-size: 14px !important;
+    line-height: 22px !important;
+  }
+  
+  /* Amenities grid → 1 column */
+  .listing-amen-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Details column */
+  .listing-details-col {
+    position: relative !important;
+    top: 0 !important;
+  }
+  
+  /* Price */
+  .listing-big-price {
+    font-size: 28px !important;
+  }
+  
+  /* Specs row → wrap */
+  .listing-specs-row {
+    gap: var(--space-2) !important;
+  }
+  
+  .listing-spec-chip {
+    font-size: 12px !important;
+    padding: 6px 12px !important;
+  }
+  
+  /* Address row */
+  .listing-address-row {
+    flex-wrap: wrap !important;
+  }
+  
+  .listing-address-map-hint {
+    width: 100%;
+    margin-top: var(--space-1) !important;
+    margin-left: 20px !important;
+  }
+  
+  /* Details grid → 1 column */
+  .listing-details-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* CTA row → column */
+  .listing-cta-row {
+    flex-direction: column !important;
+  }
+  
+  .listing-cta-primary,
+  .listing-cta-secondary {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  
+  /* Owner card */
+  .listing-owner-card {
+    flex-wrap: wrap !important;
+  }
+  
+  .listing-call-link {
+    width: 100%;
+    margin-top: var(--space-3) !important;
+    justify-content: center !important;
+  }
+  
+  /* Tour card */
+  .listing-tour-dates {
+    flex-direction: column !important;
+  }
+  
+  .listing-date-chip {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  
+  /* Safety note */
+  .listing-safety-note {
+    font-size: 12px !important;
+    padding: var(--space-3) !important;
+  }
+  
+  /* Map modal */
+  .map-modal-panel {
+    width: calc(100% - 32px) !important;
+    max-height: calc(100vh - 60px) !important;
+    margin: 0 16px !important;
+  }
+  
+  .map-modal-footer {
+    flex-direction: column !important;
+    gap: var(--space-3) !important;
+  }
+  
+  .map-gmaps-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  
+  /* ─── SEARCH MODAL ─── */
+  
+  .search-modal-backdrop {
+    padding-top: 40px !important;
+  }
+  
+  .search-modal-panel {
+    max-width: calc(100% - 32px) !important;
+    max-height: calc(100vh - 60px) !important;
+    margin: 0 16px !important;
+    border-radius: var(--radius-xl) !important;
+  }
+  
+  /* ─── HOME PAGE / BROWSE PAGE ─── */
+  
+  /* Filter bar */
+  .browse-filter-bar {
+    top: 57px !important;
+  }
+  
+  .browse-filter-inner {
+    padding: var(--space-3) var(--space-4) !important;
+    gap: var(--space-3) !important;
+  }
+  
+  /* Category chips scroll */
+  .browse-category-scroll {
+    gap: var(--space-2) !important;
+  }
+  
+  .browse-category-chip {
+    font-size: 12px !important;
+    padding: 6px 14px !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Search & filter row → column */
+  .browse-search-filter-row {
+    flex-direction: column !important;
+    gap: var(--space-2) !important;
+  }
+  
+  .browse-search-input {
+    width: 100% !important;
+  }
+  
+  .browse-controls-row {
+    width: 100%;
+    justify-content: space-between !important;
+  }
+  
+  /* Stats bar */
+  .browse-stats-text {
+    font-size: 13px !important;
+  }
+  
+  /* Listings grid */
+  .browse-listings-grid {
+    padding: 0 var(--space-4) !important;
+  }
+  
+  /* Load more button */
+  .browse-load-more-wrap {
+    padding: var(--space-6) var(--space-4) var(--space-8) !important;
+  }
+}
+
+/* Extra small mobile: up to 374px */
+@media (max-width: 374px) {
+  .header-search-trigger {
+    font-size: 12px !important;
+  }
+  
+  .header-kbd-badge {
+    display: none !important;
+  }
+  
+  .profile-stats-row {
+    flex-direction: column !important;
+    width: 100%;
+  }
+  
+  .profile-stat-card {
+    width: 100% !important;
+  }
+  
+  .listing-specs-row {
+    flex-direction: column !important;
+  }
+  
+  .listing-spec-chip {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
+
+/* Show icon only on mobile for List Property button */
+@media (max-width: 767px) {
+  .header-list-cta-icon {
+    display: inline !important;
+  }
+}
